@@ -1,38 +1,39 @@
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
+
 import static org.junit.jupiter.api.Assertions.*;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 
 
 public class MainTest {
 
-@BeforeEach
-public void setup() {
-
-}
     @Test
-    public void testaRaderEfterStop() {
-
-    //simulera input så som användare hade skrivit
-        String simulatedInput = "First line.\nstop\nSecond line.";
-    //omdirigera System.in att använda simulerad input från ovan
-        InputStream inputStream = new ByteArrayInputStream(simulatedInput.getBytes());
-        System.setIn(inputStream);
-
-        Main.runWithScanner(new java.util.Scanner(System.in));
-
-        assertEquals(1,Skriv.printRowsOfList(),"antal rader");
-        assertEquals(10, Skriv.printCharsOfList(), "Antal karaktärer");
+    public void testaTomLista() {
+        Skriv.inputs.clear();
+        assertEquals("Du har inte matat in något.", Skriv.printLongestWord());
+    }
 
 
 
-    //    @Test
-//    public void
+    @Test
+    public void testaLangstaOrdet() {
+        Skriv.inputs.clear();
+        Skriv.addToList("Första raden.");
+        Skriv.addToList("ajeag      32r23r23 12 11");
+        Skriv.addToList("Tredje raden.");
 
-//    vad är kravet för vad som ska räknas och inte?
-//testa nummer
-//testa mellanslag
-//testa storlek, bits
+        assertEquals("ajeag32r23r231211", Skriv.printLongestWord());
+    }
 
-}}
+
+
+    @Test
+    public void testaMellanslag() {
+        Skriv.inputs.clear();
+        Skriv.addToList("Test med mellanslag");
+        Skriv.addToList("En annan rad");
+        assertEquals("Testmedmellanslag", Skriv.inputs.get(0));
+        assertEquals("Enannanrad", Skriv.inputs.get(1));
+    }
+}
+
+
